@@ -1,0 +1,7 @@
+﻿@model List<ATwo.Models.Instructor>
+
+@foreach (var item in Model)
+{
+    <p>@item.Name - @(item.Department?.Name ?? "No Dept")</p>
+    <a asp-action="Detail" asp-route-id="@item.Id">Details</a>
+}

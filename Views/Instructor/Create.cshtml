@@ -1,0 +1,21 @@
+﻿@* @page
+@model ATwo.Models.Instructor
+
+<form asp-action="Create" method="post">
+    <input asp-for="Name" placeholder="Name" /><br />
+    <input asp-for="Image" placeholder="Image" /><br />
+    <input asp-for="Salary" placeholder="Salary" /><br />
+    <input asp-for="Address" placeholder="Address" /><br />
+
+    <select asp-for="DepartmentId"
+            asp-items="@(new SelectList(ViewBag.Departments, "Id", "Name"))">
+        <option value="">-- Select Department --</option>
+    </select><br />
+
+    <select asp-for="CourseId"
+            asp-items="@(new SelectList(ViewBag.Courses, "Id", "Name"))">
+        <option value="">-- Select Course --</option>
+    </select><br />
+
+    <button type="submit">Save</button>
+</form> *@
