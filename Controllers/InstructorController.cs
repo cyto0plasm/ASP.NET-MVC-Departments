@@ -5,10 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ATwo.Controllers
 {
-    public class InstructorController : Controller
+    public class InstructorController(AppDbContext db) : Controller
     {
-        private AppDbContext _db;
-        public InstructorController(AppDbContext db) =>_db = db;
+        private readonly AppDbContext _db = db;
 
         public IActionResult Index()
         {
@@ -16,25 +15,12 @@ namespace ATwo.Controllers
 
             return View(instructors);
         }
-        public IActionResult Detail(int id)
+        public IActionResult Details(int id)
         {
-            var instructorDetails = _db.Instructors.Include(i => i.Department).Include(i => i.Course).FirstOrDefault(i => i.Id == id);
-            return View(instructorDetails);
+            var insDetails = _db.Instructors.Include(i => i.Department).Include(i => i.Course).FirstOrDefault(i => i.Id == id);
+            return View(insDetails);
         }
-        //public IActionResult Create()
-        //{
-        //    ViewBag.Departments = _db.Departments.ToList();
-        //    ViewBag.Courses = _db.Courses.ToList();
-        //    return View();
-        //}
-
-        //[HttpPost]
-        //public IActionResult Create(Instructor instructor)
-        //{
-        //    _db.Instructors.Add(instructor);
-        //    _db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
+       
     }
 
 }

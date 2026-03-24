@@ -1,7 +1,20 @@
 ﻿@model List<ATwo.Models.Instructor>
 
-@foreach (var item in Model)
-{
-    <p>@item.Name - @(item.Department?.Name ?? "No Dept")</p>
-    <a asp-action="Detail" asp-route-id="@item.Id">Details</a>
-}
+<div class="container py-4">
+    <h4 class="mb-3">Instructors</h4>
+    <table class="table table-sm table-bordered">
+        <thead class="table-light">
+            <tr><th>Name</th><th>Department</th><th></th></tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@(item.Department?.Name ?? "—")</td>
+                    <td><a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Details</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -13,7 +13,7 @@ namespace ATwo.Models
         public double? Grade { get; set; }
 
         [ForeignKey("depatrmentId")]
-        public Department Department { get; set; }
+        public Department ?Department { get; set; }
 
         public List<CourseResults>? CourseResults { get; set; }
 

@@ -17,7 +17,7 @@ namespace ATwo.Models
         public Department ?Department { get; set; }
 
         [ForeignKey("courseId")]
-        public Course Course { get; set; }
+        public Course ?Course { get; set; }
 
     }
 }
