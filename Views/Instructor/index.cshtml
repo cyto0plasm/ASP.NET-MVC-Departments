@@ -4,15 +4,19 @@
 
     <div class="d-flex align-items-center justify-content-between mb-4">
         <h4 class="mb-0 fw-semibold">Instructors</h4>
-        <div class="input-group" style="max-width: 280px;">
-            <span class="input-group-text bg-white border-end-0">
-                <i class="bi bi-search text-muted"></i>
-            </span>
-                <input id="searchInput"
+        <form method="get" asp-action="Index" class="d-flex" style="max-width: 320px;">
+            <div class="input-group">
+                <span class="input-group-text bg-white border-end-0">
+                    <i class="bi bi-search text-muted"></i>
+                </span>
+                <input name="name"
                        type="text"
                        class="form-control border-start-0 ps-0"
-                       placeholder="Search by name..." />
-        </div>
+                       placeholder="Search by name..."
+                       value="@ViewData["SearchName"]" />
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
     </div>
 
     <div class="card shadow-sm border-0">
@@ -24,11 +28,11 @@
                     <th></th>
                 </tr>
             </thead>
-            <tbody id="instructorTable">
+            <tbody>
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td class="ps-3 fw-medium instructor-name">@item.Name</td>
+                        <td class="ps-3 fw-medium">@item.Name</td>
                         <td class="text-muted">@(item.Department?.Name ?? "—")</td>
                         <td class="text-end pe-3">
                             <a asp-action="Details" asp-route-id="@item.Id"
@@ -39,30 +43,11 @@
             </tbody>
         </table>
 
-        <div id="noResults" class="text-center text-muted py-4 d-none">
-            No instructors match your search.
-        </div>
+        @if (!Model.Any())
+        {
+            <div class="text-center text-muted py-4">
+                No instructors match your search.
+            </div>
+        }
     </div>
 </div>
-
-@section Scripts {
-    <script>
-        const input = document.getElementById('searchInput');
-        const rows = document.querySelectorAll('#instructorTable tr');
-        const noResults = document.getElementById('noResults');
-
-        input.addEventListener('input', () => {
-            const query = input.value.toLowerCase().trim();
-            let visibleCount = 0;
-
-            rows.forEach(row => {
-                const name = row.querySelector('.instructor-name')?.textContent.toLowerCase() ?? '';
-                const match = name.includes(query);
-                row.classList.toggle('d-none', !match);
-                if (match) visibleCount++;
-            });
-
-            noResults.classList.toggle('d-none', visibleCount > 0);
-        });
-    </script>
-}
