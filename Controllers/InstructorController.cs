@@ -9,10 +9,15 @@ namespace ATwo.Controllers
     {
         private readonly AppDbContext _db = db;
 
-        public IActionResult Index()
+        public IActionResult Index(string? name)
         {
-            var instructors = _db.Instructors.Include(i => i.Department).Include(i => i.Course).ToList();
+            var instructors = _db.Instructors
+                .Include(i => i.Department)
+                .Include(i => i.Course)
+                .Where(i => string.IsNullOrEmpty(name) || i.Name.Contains(name))
+                .ToList();
 
+            ViewData["SearchName"] = name;
             return View(instructors);
         }
         public IActionResult Details(int id)
