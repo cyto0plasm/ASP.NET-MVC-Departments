@@ -12,12 +12,13 @@ namespace ATwo.Models
         public double? Salary { get; set; }
         public string? Address { get; set; }
 
+        public int? DepartmentId { get; set; }
+        [ForeignKey("DepartmentId")]
+        public Department? Department { get; set; }
 
-        [ForeignKey("depatrmentId")]
-        public Department ?Department { get; set; }
-
-        [ForeignKey("courseId")]
-        public Course ?Course { get; set; }
+        public int? CourseId { get; set; }
+        [ForeignKey("CourseId")]
+        public Course? Course { get; set; }
 
     }
 }

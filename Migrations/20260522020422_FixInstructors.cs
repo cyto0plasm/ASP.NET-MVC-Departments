@@ -1,12 +1,11 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace ATwo.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class FixInstructors : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -34,15 +33,15 @@ namespace ATwo.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Degree = table.Column<double>(type: "float", nullable: true),
                     MinDegree = table.Column<double>(type: "float", nullable: true),
-                    Hrs = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    depatrmentId = table.Column<int>(type: "int", nullable: true)
+                    Hrs = table.Column<int>(type: "int", nullable: true),
+                    DepartmentId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Courses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Courses_Departments_depatrmentId",
-                        column: x => x.depatrmentId,
+                        name: "FK_Courses_Departments_DepartmentId",
+                        column: x => x.DepartmentId,
                         principalTable: "Departments",
                         principalColumn: "Id");
                 });
@@ -57,17 +56,16 @@ namespace ATwo.Migrations
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Grade = table.Column<double>(type: "float", nullable: true),
-                    depatrmentId = table.Column<int>(type: "int", nullable: false)
+                    DepartmentId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Trainees", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Trainees_Departments_depatrmentId",
-                        column: x => x.depatrmentId,
+                        name: "FK_Trainees_Departments_DepartmentId",
+                        column: x => x.DepartmentId,
                         principalTable: "Departments",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -80,21 +78,20 @@ namespace ATwo.Migrations
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Salary = table.Column<double>(type: "float", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    depatrmentId = table.Column<int>(type: "int", nullable: true),
-                    courseId = table.Column<int>(type: "int", nullable: false)
+                    DepartmentId = table.Column<int>(type: "int", nullable: true),
+                    CourseId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Instructors", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Instructors_Courses_courseId",
-                        column: x => x.courseId,
+                        name: "FK_Instructors_Courses_CourseId",
+                        column: x => x.CourseId,
                         principalTable: "Courses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Instructors_Departments_depatrmentId",
-                        column: x => x.depatrmentId,
+                        name: "FK_Instructors_Departments_DepartmentId",
+                        column: x => x.DepartmentId,
                         principalTable: "Departments",
                         principalColumn: "Id");
                 });
@@ -106,15 +103,15 @@ namespace ATwo.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Degree = table.Column<double>(type: "float", nullable: true),
-                    courseId = table.Column<int>(type: "int", nullable: true),
+                    CourseId = table.Column<int>(type: "int", nullable: true),
                     TraineeId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CourseResults", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CourseResults_Courses_courseId",
-                        column: x => x.courseId,
+                        name: "FK_CourseResults_Courses_CourseId",
+                        column: x => x.CourseId,
                         principalTable: "Courses",
                         principalColumn: "Id");
                     table.ForeignKey(
@@ -125,9 +122,9 @@ namespace ATwo.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CourseResults_courseId",
+                name: "IX_CourseResults_CourseId",
                 table: "CourseResults",
-                column: "courseId");
+                column: "CourseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CourseResults_TraineeId",
@@ -135,24 +132,24 @@ namespace ATwo.Migrations
                 column: "TraineeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Courses_depatrmentId",
+                name: "IX_Courses_DepartmentId",
                 table: "Courses",
-                column: "depatrmentId");
+                column: "DepartmentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Instructors_courseId",
+                name: "IX_Instructors_CourseId",
                 table: "Instructors",
-                column: "courseId");
+                column: "CourseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Instructors_depatrmentId",
+                name: "IX_Instructors_DepartmentId",
                 table: "Instructors",
-                column: "depatrmentId");
+                column: "DepartmentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Trainees_depatrmentId",
+                name: "IX_Trainees_DepartmentId",
                 table: "Trainees",
-                column: "depatrmentId");
+                column: "DepartmentId");
         }
 
         /// <inheritdoc />

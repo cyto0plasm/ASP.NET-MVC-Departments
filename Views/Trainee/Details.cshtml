@@ -1,0 +1,71 @@
+﻿@model ATwo.Models.Trainee
+
+<div class="container py-4" style="max-width: 600px;">
+
+    <div class="d-flex align-items-center mb-4">
+        <a asp-action="Index" class="btn btn-sm btn-outline-secondary me-3">
+            <i class="bi bi-arrow-left"></i>
+        </a>
+        <h4 class="mb-0 fw-semibold">@Model.Name</h4>
+    </div>
+
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body px-4 py-3">
+
+            @* Image *@
+            @if (!string.IsNullOrEmpty(Model.Image))
+            {
+                <div class="mb-3 text-center">
+                    <img src="@Model.Image" alt="@Model.Name"
+                         style="height:150px; width:150px; object-fit:cover; border-radius:12px;" />
+                </div>
+            }
+
+            <dl class="row mb-0">
+                <dt class="col-sm-4">Address</dt>
+                <dd class="col-sm-8 text-muted">@(Model.Address ?? "—")</dd>
+
+                <dt class="col-sm-4">Grade</dt>
+                <dd class="col-sm-8 text-muted">@(Model.Grade?.ToString() ?? "—")</dd>
+
+                <dt class="col-sm-4">Department</dt>
+                <dd class="col-sm-8 text-muted">@(Model.Department?.Name ?? "—")</dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-white fw-medium py-2 px-4">Course Results</div>
+        <table class="table table-hover mb-0 align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th class="ps-4">Course</th>
+                    <th>Degree</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.CourseResults != null && Model.CourseResults.Any())
+                {
+                    @foreach (var result in Model.CourseResults)
+                    {
+                        <tr>
+                            <td class="ps-4">@(result.Course?.Name ?? "—")</td>
+                            <td class="text-muted">@(result.Degree?.ToString() ?? "—")</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="2" class="text-center text-muted py-3">No course results.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-3 d-flex gap-2">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-primary">Edit</a>
+        <a asp-action="Index" class="btn btn-sm btn-outline-secondary">Back</a>
+    </div>
+</div>

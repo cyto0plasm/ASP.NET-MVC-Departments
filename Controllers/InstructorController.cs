@@ -25,7 +25,55 @@ namespace ATwo.Controllers
             var insDetails = _db.Instructors.Include(i => i.Department).Include(i => i.Course).FirstOrDefault(i => i.Id == id);
             return View(insDetails);
         }
-       
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            ViewBag.Departments = _db.Departments.ToList();
+            ViewBag.Courses = _db.Courses.ToList();
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Instructor instructor)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Departments = _db.Departments.ToList();
+                ViewBag.Courses = _db.Courses.ToList();
+                return View(instructor);
+            }
+            _db.Instructors.Add(instructor);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var instructor = _db.Instructors.FirstOrDefault(i => i.Id == id);
+            if (instructor == null)
+            {
+                return NotFound();
+            }
+            ViewBag.Departments = _db.Departments.ToList();
+            ViewBag.Courses = _db.Courses.ToList();
+            return View(instructor);
+        }
+
+        [HttpPost]
+    public IActionResult Edit(Instructor instructor)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Departments = _db.Departments.ToList();
+                ViewBag.Courses = _db.Courses.ToList();
+                return View(instructor);
+            }
+            _db.Instructors.Update(instructor);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        } 
     }
 
-}
+    }

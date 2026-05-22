@@ -1,0 +1,66 @@
+﻿@model ATwo.Models.Course
+
+<div class="container py-4" style="max-width: 500px;">
+
+    <div class="d-flex align-items-center mb-4">
+        <a href="@Url.Action("Index")" class="btn btn-sm btn-outline-secondary me-3">
+            <i class="bi bi-arrow-left"></i>
+        </a>
+        <h4 class="mb-0 fw-semibold">Edit Course</h4>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-4">
+            @using (Html.BeginForm("Edit", "Course", FormMethod.Post))
+            {
+                @Html.ValidationSummary(true, "", new { @class = "alert alert-danger py-2 mb-3" })
+                @Html.HiddenFor(m => m.Id)
+
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.Name, "Name", new { @class = "form-label fw-medium" })
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Course name" })
+                    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger small" })
+                </div>
+
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.Degree, "Degree", new { @class = "form-label fw-medium" })
+                    @Html.TextBoxFor(m => m.Degree, new { @class = "form-control", placeholder = "100" })
+                    @Html.ValidationMessageFor(m => m.Degree, "", new { @class = "text-danger small" })
+                </div>
+
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.MinDegree, "Min Degree", new { @class = "form-label fw-medium" })
+                    @Html.TextBoxFor(m => m.MinDegree, new { @class = "form-control", placeholder = "50" })
+                    @Html.ValidationMessageFor(m => m.MinDegree, "", new { @class = "text-danger small" })
+                </div>
+
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.Hrs, "Hours", new { @class = "form-label fw-medium" })
+                    @Html.TextBoxFor(m => m.Hrs, new { @class = "form-control", placeholder = "3" })
+                    @Html.ValidationMessageFor(m => m.Hrs, "", new { @class = "text-danger small" })
+                </div>
+
+                <div class="mb-4">
+                    @Html.LabelFor(m => m.DepartmentId, "Department", new { @class = "form-label fw-medium" })
+                    @Html.DropDownListFor(m => m.DepartmentId,
+                        new SelectList(ViewBag.Departments, "Id", "Name"),
+                        "— Select department —",
+                        new { @class = "form-select" })
+                    @Html.ValidationMessageFor(m => m.DepartmentId, "", new { @class = "text-danger small" })
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary px-4">Save</button>
+                    <a href="@Url.Action("Details", new { id = Model.Id })"
+                       class="btn btn-outline-secondary px-4">Cancel</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

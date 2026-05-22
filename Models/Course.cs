@@ -1,23 +1,27 @@
-﻿    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
+﻿using ATwo.Models;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-    namespace ATwo.Models
+namespace ATwo.Models
+{
+    public class Course
     {
-        public class Course
-        {
-            [Key]
-            public int? Id { get; set; }
-            public string? Name { get; set; }
-            public double? Degree { get; set; }
-            public double? MinDegree { get; set; }
-            public DateTime? Hrs { get; set; }
+        
+        [Key]
+        public int? Id { get; set; }
+        public string? Name { get; set; }
+        public double? Degree { get; set; }
+        public double? MinDegree { get; set; }
+        public int? Hrs { get; set; }
 
-            [ForeignKey("depatrmentId")]
-            public Department ?Department { get; set; }
+        //Relationships
+        public int? DepartmentId { get; set; }
+        [ForeignKey("DepartmentId")]
+        public Department? Department { get; set; }
 
-            public List<CourseResults>? CourseResults { get; set; }
-
-            public List<Instructor>? Instructors { get; set; }
-
-        }
+        public List<Instructor>? Instructors { get; set; }
+        public List<CourseResults>? CourseResults { get; set; }
     }
+
+
+}

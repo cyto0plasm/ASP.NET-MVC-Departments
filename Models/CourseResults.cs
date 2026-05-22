@@ -10,10 +10,14 @@ namespace ATwo.Models
 
         public double? Degree { get; set; }
 
-        [ForeignKey("courseId")]
-        public Course ?Course { get; set; }
-        [ForeignKey("traineeId")]
-        public Trainee ?Trainee { get; set; }
+        public int? CourseId { get; set; }
+        [ForeignKey("CourseId")]
+        public Course? Course { get; set; }
+
+        // FK للـ Trainee
+        public int? TraineeId { get; set; }
+        [ForeignKey("TraineeId")]
+        public Trainee? Trainee { get; set; }
 
 
     }

@@ -9,10 +9,10 @@ namespace ATwo.Models
         public string? Name { get; set; }
         public string? Manager { get; set; }
 
-
+     //Relationships 
         public List<Instructor>? Instructors { get; set; }
-        public List<Trainee>? Trainee { get; set; }
+        public List<Trainee>? Trainees { get; set; }
 
-        public List<Course>? Course { get; set; }
+        public List<Course>? Courses { get; set; }
     }
 }

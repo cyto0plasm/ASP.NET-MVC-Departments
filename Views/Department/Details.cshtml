@@ -1,0 +1,123 @@
+﻿@model ATwo.Models.Department
+
+<div class="container py-4" style="max-width: 700px;">
+
+    <div class="d-flex align-items-center mb-4">
+        <a asp-action="Index" class="btn btn-sm btn-outline-secondary me-3">
+            <i class="bi bi-arrow-left"></i>
+        </a>
+        <h4 class="mb-0 fw-semibold">@Model.Name</h4>
+    </div>
+
+    @* Basic Info *@
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body px-4 py-3">
+            <dl class="row mb-0">
+                <dt class="col-sm-3">Manager</dt>
+                <dd class="col-sm-9 text-muted">@(Model.Manager ?? "—")</dd>
+            </dl>
+        </div>
+    </div>
+
+    @* Instructors *@
+    <div class="card shadow-sm border-0 mb-3">
+        <div class="card-header bg-white fw-medium py-2 px-4">Instructors</div>
+        <table class="table table-hover mb-0 align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th class="ps-4">Name</th>
+                    <th>Salary</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Instructors != null && Model.Instructors.Any())
+                {
+                    @foreach (var ins in Model.Instructors)
+                    {
+                        <tr>
+                            <td class="ps-4">@ins.Name</td>
+                            <td class="text-muted">@(ins.Salary?.ToString() ?? "—")</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="2" class="text-center text-muted py-3">No instructors.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @* Trainees *@
+    <div class="card shadow-sm border-0 mb-3">
+        <div class="card-header bg-white fw-medium py-2 px-4">Trainees</div>
+        <table class="table table-hover mb-0 align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th class="ps-4">Name</th>
+                    <th>Grade</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Trainees != null && Model.Trainees.Any())
+                {
+                    @foreach (var t in Model.Trainees)
+                    {
+                        <tr>
+                            <td class="ps-4">@t.Name</td>
+                            <td class="text-muted">@(t.Grade?.ToString() ?? "—")</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="2" class="text-center text-muted py-3">No trainees.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @* Courses *@
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-header bg-white fw-medium py-2 px-4">Courses</div>
+        <table class="table table-hover mb-0 align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th class="ps-4">Name</th>
+                    <th>Degree</th>
+                    <th>Min Degree</th>
+                    <th>Hours</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Courses != null && Model.Courses.Any())
+                {
+                    @foreach (var c in Model.Courses)
+                    {
+                        <tr>
+                            <td class="ps-4">@c.Name</td>
+                            <td class="text-muted">@(c.Degree?.ToString() ?? "—")</td>
+                            <td class="text-muted">@(c.MinDegree?.ToString() ?? "—")</td>
+                            <td class="text-muted">@(c.Hrs?.ToString() ?? "—")</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4" class="text-center text-muted py-3">No courses.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="d-flex gap-2">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-primary">Edit</a>
+        <a asp-action="Index" class="btn btn-sm btn-outline-secondary">Back</a>
+    </div>
+</div>

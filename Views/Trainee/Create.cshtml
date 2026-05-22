@@ -1,19 +1,18 @@
-﻿@model ATwo.Models.Instructor
+﻿@model ATwo.Models.Trainee
 
 <div class="container py-4" style="max-width: 500px;">
 
     <div class="d-flex align-items-center mb-4">
-        @Html.ActionLink("", "Index", null, new { @class = "btn btn-sm btn-outline-secondary me-3" },
-            new { content = "<i class='bi bi-arrow-left'></i>" })
         <a href="@Url.Action("Index")" class="btn btn-sm btn-outline-secondary me-3">
             <i class="bi bi-arrow-left"></i>
         </a>
-        <h4 class="mb-0 fw-semibold">New Instructor</h4>
+        <h4 class="mb-0 fw-semibold">New Trainee</h4>
     </div>
 
     <div class="card shadow-sm border-0">
         <div class="card-body p-4">
-            @using (Html.BeginForm("Create", "Instructor", FormMethod.Post))
+            @using (Html.BeginForm("Create", "Trainee", FormMethod.Post,
+                        new { enctype = "multipart/form-data" }))
             {
                 @Html.ValidationSummary(true, "", new { @class = "alert alert-danger py-2 mb-3" })
 
@@ -24,30 +23,29 @@
                 </div>
 
                 <div class="mb-3">
-                    @Html.LabelFor(m => m.Salary, "Salary", new { @class = "form-label fw-medium" })
-                    <div class="input-group">
-                        <span class="input-group-text bg-white">$</span>
-                        @Html.TextBoxFor(m => m.Salary, new { @class = "form-control", placeholder = "0.00" })
-                    </div>
-                    @Html.ValidationMessageFor(m => m.Salary, "", new { @class = "text-danger small" })
+                    <label class="form-label fw-medium">Image</label>
+                    <input type="file" name="imageFile" class="form-control" accept="image/*" />
                 </div>
 
                 <div class="mb-3">
+                    @Html.LabelFor(m => m.Address, "Address", new { @class = "form-label fw-medium" })
+                    @Html.TextBoxFor(m => m.Address, new { @class = "form-control", placeholder = "Address" })
+                    @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger small" })
+                </div>
+
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.Grade, "Grade", new { @class = "form-label fw-medium" })
+                    @Html.TextBoxFor(m => m.Grade, new { @class = "form-control", placeholder = "0.0" })
+                    @Html.ValidationMessageFor(m => m.Grade, "", new { @class = "text-danger small" })
+                </div>
+
+                <div class="mb-4">
                     @Html.LabelFor(m => m.DepartmentId, "Department", new { @class = "form-label fw-medium" })
                     @Html.DropDownListFor(m => m.DepartmentId,
                         new SelectList(ViewBag.Departments, "Id", "Name"),
                         "— Select department —",
                         new { @class = "form-select" })
                     @Html.ValidationMessageFor(m => m.DepartmentId, "", new { @class = "text-danger small" })
-                </div>
-
-                <div class="mb-4">
-                    @Html.LabelFor(m => m.CourseId, "Course", new { @class = "form-label fw-medium" })
-                    @Html.DropDownListFor(m => m.CourseId,
-                        new SelectList(ViewBag.Courses, "Id", "Name"),
-                        "— Select course —",
-                        new { @class = "form-select" })
-                    @Html.ValidationMessageFor(m => m.CourseId, "", new { @class = "text-danger small" })
                 </div>
 
                 <div class="d-flex gap-2">
